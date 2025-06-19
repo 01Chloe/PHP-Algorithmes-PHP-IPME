@@ -1,6 +1,6 @@
 <?php
 $decodRes = json_decode(file_get_contents('https://hp-api.onrender.com/api/characters'), true);
-// var_dump($decodRes);
+//var_dump($decodRes);
 ?>
 
 <!DOCTYPE html>
@@ -19,15 +19,21 @@ $decodRes = json_decode(file_get_contents('https://hp-api.onrender.com/api/chara
                 <?php if($value['image']) : ?>
                     <div class="col-md-4">
                         <div class="card my-4" style="width: 18rem;">
-                            <div class="card-body">
+                            <div class="card-body position-relative">
+                                <?php if(!$value['alive']) : ?>
+                                    <img src="../assets/skull-crossbones-solid.svg" alt="" class="position-absolute" />
+                                <?php endif; ?>
                                 <div class="card-img-top">
                                     <img src="<?= $value['image'] ?>" alt="" class="w-100">
                                 </div>
                                 <div class="card-title">
                                     <h2><?= $value['name'] ?></h2>
                                 </div>
-                                <div class="card-text">
+                                <div class="card-text position-relative">
                                     <p><?= $value['house'] ?></p>
+                                    <?php if($value['house']) : ?>
+                                        <img src="<?= getHouse($value['house'])?>" alt="" class="position-absolute top-0 end-0" />
+                                    <?php endif; ?>
                                     <p><?= $value['dateOfBirth'] ?></p>
                                 </div>
                             </div>
@@ -39,3 +45,9 @@ $decodRes = json_decode(file_get_contents('https://hp-api.onrender.com/api/chara
     </div>
 </body>
 </html>
+
+<?php
+function getHouse($house) {
+    return "../assets/" . strtolower($house) . ".svg";
+}
+?>
