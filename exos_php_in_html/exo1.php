@@ -14,6 +14,5 @@ $titre = "Bienvenue sur mon site";
     <div>
         <h1><?= $titre ?></h1>
     </div>    
-
 </body>
 </html>
